@@ -1,0 +1,16 @@
+{
+  "runtimes": [
+    {
+      "version": "8.0.0",
+      "dotnetVersion": "8.0.0",
+      "source": "nuget",
+      "enabled": true
+    },
+    {
+      "version": "9.0.0",
+      "dotnetVersion": "9.0.0",
+      "source": "nuget",
+      "enabled": true
+    }
+  ]
+}
