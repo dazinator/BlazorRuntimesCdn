@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blazor Runtime CDN Example</title>
+    <base href="/example/" />
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link href="ExampleApp.styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text">Loading Blazor runtime from CDN...</div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="." class="reload">Reload</a>
+        <span class="dismiss">🗙</span>
+    </div>
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script>
+        Blazor.start({
+            webAssembly: {
+                loadBootResource: function (type, name, defaultUri, integrity) {
+                    console.log(`Resource type: ${type}, name: ${name}`);
+                    
+                    switch (type) {
+                        case 'dotnetjs':
+                        case 'dotnetwasm':
+                        case 'timezonedata':
+                            const cdnUrl = `https://blazor-runtime.gh.dazinator.net/runtimes/9.0.0/${name}`;
+                            console.log(`Loading from CDN: ${cdnUrl}`);
+                            return cdnUrl;
+                    }
+                    
+                    // App assemblies load from default location
+                    console.log(`Loading from default: ${defaultUri}`);
+                    return defaultUri;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
